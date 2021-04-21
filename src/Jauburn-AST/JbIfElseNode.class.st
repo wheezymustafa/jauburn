@@ -7,6 +7,14 @@ Class {
 	#category : #'Jauburn-AST-Core'
 }
 
+{ #category : #'as yet unclassified' }
+JbIfElseNode >> executeIn: anEnvironment [
+
+(condition evaluateIn: anEnvironment)
+	ifTrue: [ trueStatements do: [ :stmt | stmt executeIn: anEnvironment ] ]
+	ifFalse: [ falseStatements do: [ :stmt | stmt executeIn: anEnvironment ] ]
+]
+
 { #category : #accessing }
 JbIfElseNode >> falseStatements [
 	^ falseStatements

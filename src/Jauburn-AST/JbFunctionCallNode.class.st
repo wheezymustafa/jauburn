@@ -18,6 +18,22 @@ JbFunctionCallNode >> arguments: anObject [
 	arguments := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+JbFunctionCallNode >> evaluateIn: anEnvironment [
+
+| func |
+func := anEnvironment at: identifier.
+^ func call: arguments in: anEnvironment.
+]
+
+{ #category : #'as yet unclassified' }
+JbFunctionCallNode >> executeIn: anEnvironment [
+
+| func |
+func := anEnvironment at: identifier.
+^ func call: arguments in: anEnvironment.
+]
+
 { #category : #accessing }
 JbFunctionCallNode >> identifier [
 	^ identifier

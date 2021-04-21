@@ -29,8 +29,30 @@ JbFunction >> body: anObject [
 { #category : #api }
 JbFunction >> call: arguments in: callEnvironment [
 	"You need to implement this method!  arguments will contain the arguments to pass to this function and callEnvironment will contain the environment in place when this function was called."
-	
-	self shouldBeImplemented 
+
+	| newEnv |
+	newEnv := JbEnvironment new outerEnvironment: environment .
+
+	1 to: parameters size do: [ :x | 
+		newEnv 
+			at: (parameters at: x) identifier
+			put: ((arguments at: x) evaluateIn: callEnvironment ) ].
+		
+
+	[body do: [ :each | each executeIn: newEnv  ]] on: ReturnStatementDetected do: [ :exc | ^ exc value ].	
+
+
+"	| newEnv |
+	newEnv := JbEnvironment new outerEnvironment: callEnvironment."
+
+"	1 to: parameters size do: [ :x | 
+		newEnv 
+			at: (parameters at: x) identifier
+			put: ((arguments at: x) evaluateIn: newEnv ) ].
+		
+
+	[body do: [ :each | each executeIn: newEnv  ]] on: ReturnStatementDetected do: [ :exc | ^ exc value ].	"
+
 ]
 
 { #category : #accessing }

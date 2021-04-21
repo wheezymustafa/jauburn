@@ -286,3 +286,15 @@ JbParserTest >> testVariableDeclarationStatement [
 	stmt := self parse: 'var monkey = 37*x;' rule: #variableDeclarationStatement.
 	self assert: stmt identifier equals: 'monkey'
 ]
+
+{ #category : #'as yet unclassified' }
+JbParserTest >> testWhileStatement [
+
+	| stmt |
+	stmt := self parse: 'while (true) {}' rule: #whileStatement.
+	self assert: stmt condition value equals: true.
+	self assert: stmt statements isEmpty.
+	
+	stmt := self parse: 'while (x < 10) { x = x + 1; }' rule: #whileStatement.
+	self assert: stmt statements size equals: 1.
+]
